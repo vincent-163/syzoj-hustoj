@@ -43,7 +43,6 @@ docker cp JudgeOnline /var/syzoj/syzoj/static/
 * 在没有 data.yml 的情况下，默认使用“min”方式测评。
 * “min”测评方式中，时限指的是整个子任务的总时限。
 * 为了适应 Docker 环境，frontend 被合并到 web 中。
-* 为了适应爬虫，不再使用 Markdown 代码，所有代码不经过滤直接以 HTML 显示。
 
 相关项目可在 https://github.com/hewenyang/syzoj 的 merge\_frontend 分支和 https://github.com/hewenyang/judge-v3 的 hustoj-like 分支找到。
 
