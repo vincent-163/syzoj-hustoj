@@ -15,7 +15,10 @@ gem install mysql2
 由于太懒，我没有对 URL 进行检查，所以理论上 `download_all.sh` 可能会出现恶意代码。需要手动检查 `download_all.sh`，确保没有语法错误和不合法的代码，然后执行 `bash download_all.sh`。脚本会生成一个 JudgeOnline 目录，并自动下载所有的图片等文件。这样抓取就完成了。
 
 # 部署
-需要安装 docker 和 docker-compose。请参考 build 目录内的 README.md 进行部署，本章只介绍部署后导入题目的方法。
+需要安装 docker 和 docker-compose。请前往 <https://github.com/hewenyang/syzoj-docker> 下载 SYZOJ Docker 版，参考目录内的 README.md 进行部署，需要做出以下修改：
+* 从 <https://github.com/hewenyang/judge-v3> 的 hustoj-like 分支重新打包为 judge-v3.tar.xz 并放入 syzoj-docker 目录中。打包以 git 仓库为根目录。该版本的 SYZOJ 在没有 data.yml 的情况下默认使用“min”方式测评，并且时限指的是整个子任务的总时限。
+
+本章只介绍部署后导入题目的方法。
 
 在导入之前，请在系统里创建至少一个账号。第一个账号将成为所有题目的所有者。不创建账号会导致导入失败。
 将刚才生成的 syzoj.sql 复制到容器中：
@@ -37,13 +40,3 @@ docker cp JudgeOnline /var/syzoj/syzoj/static/
 ```
 
 将数据文件拷贝到部署时指定的目录即可。
-
-# 备注
-本项目使用的是一个修改版的 SYZOJ，作出了以下修改：
-* 在没有 data.yml 的情况下，默认使用“min”方式测评。
-* “min”测评方式中，时限指的是整个子任务的总时限。
-* 为了适应 Docker 环境，frontend 被合并到 web 中。
-
-相关项目可在 https://github.com/hewenyang/syzoj 的 merge\_frontend 分支和 https://github.com/hewenyang/judge-v3 的 hustoj-like 分支找到。
-
-为了方便安装，build 文件夹内的 syzoj.tar.xz 和 judge-v3.tar.xz 为在 Ubuntu 18.04 LTS 下执行过 npm install 的版本。如果有不兼容的情况，请使用 syzoj-source.tar.xz 和 judge-v3-source.tar.xz 分别替换。
